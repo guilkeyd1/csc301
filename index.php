@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <!-- BEGIN NON-BOILERPLATE CODE -->
+		<div class="slogan_box"></div>
 		<div class="login-box">
 			<form method="POST">
 				<!--<a href="" class="forgot">Forgot Password?</a>-->
@@ -37,7 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				<br>
 				<input type="submit" name="login_button" value="Login">
 				<div class="register">
-					New members <a href="register.php">join</a> here.
+					<!--New members <a href="register.php">join</a> here.-->
+					New members <a href="user_details.php?action=add">join</a> here.
 				</div>
 			</form>
 		</div>

@@ -1,16 +1,24 @@
+body {
+	background-image:url("../images/00_Background.png");
+	background-size:100%;
+}
+
 main {
 	width:70%;
 	margin:auto;
-	background-color:#DDDDDD;
+	background-color:#EDEBA7;
 	border:1px solid black;
-	min-height:400px;
 	position:relative;
 	z-index:98;
 }
 
 .site_title {
-	text-align:center;
-	letter-spacing: 5px;
+	background-image:url("../images/01_HeaderBackground.png");
+	background-position: center;
+	height:178px;
+	width:70%;
+	margin:auto;
+	border:1px solid black;
 }
 
 .user_top {
@@ -18,11 +26,12 @@ main {
 	max-width:100%;
 	height:32px;
 	max-height:32px;
-	background-color:#DDDDDD;
+	background-color:#AD9641;
 	border-bottom:1px solid black;
 	overflow:show;
 	position:relative;
 	z-index:99;
+	background-image:url("../images/06_SecondaryBar.png");
 }
 
 .drop_down {
@@ -37,10 +46,10 @@ main {
     font-size: 16px;    
     border: none;
     outline: none;
-    color: white;
+    color: #3F1A08;
     padding: 5px 8px;
 	max-height:32px;
-    background-color: red;
+    background-color: transparent;
 	width:182px;
 }
 
@@ -78,6 +87,7 @@ main {
 .page {
 	text-align:center;
 	padding-bottom:40px;
+	min-height:300px;
 }
 
 .page p {
@@ -93,8 +103,10 @@ main {
 }
 
 .page table th {
-	background-color: #202020;
+	background-color: #3F1A08;
 	color: #FFFFFF;
+	border-top:2px solid #AD9641;
+	border-bottom:2px solid #AD9641;
 }
 
 .page table tr:nth-child(even) {
@@ -130,4 +142,32 @@ main {
 .search_area {
 	float:right;
 	margin:4px
+}
+
+.footer {
+	height:38px;
+	background-image:url("../images/02_FooterBackground.png");
+	vertical-align:bottom;
+}
+
+.copyright {
+	width:70%;
+	margin:auto;
+	text-align:center;
+	font-size:12px;
+	margin-top:6px;
+}
+
+.slogan_box {
+	height:72px;
+	text-align:center;
+	margin-top:25px;
+	margin-bottom:25px;
+	background-image:url("../images/03_Slogan.png");
+	background-repeat:no-repeat;
+	background-position:center;
+}
+
+.login-box {
+	border:1px solid black;
 }

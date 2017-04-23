@@ -14,7 +14,7 @@
 	session_start();
 	
 	// determine if current URL is for not-signed-in users
-	if($current_url != 'index.php' && $current_url != 'register.php') {
+	if($current_url != 'index.php' && $current_url != 'user_details.php?action=add') {
 		$nosession = true;
 	}
 	else {

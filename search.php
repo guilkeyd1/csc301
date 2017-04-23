@@ -42,7 +42,7 @@ $articles = $statement->fetchAll(PDO::FETCH_ASSOC);
 			<tr>
 				<td>&nbsp;<a href="view_article.php?action=view&article=<?php echo $article['article_id'] ?>">View</a>
 				<td>&nbsp;<?php echo $article['title'] ?></td>
-				<td>&nbsp;<a href="user_details.php?user=<?php echo $article['author']?>&action=view"><?php echo $article['user_name'] ?></a></td>
+				<td>&nbsp;<a href="profile.php?user=<?php echo $article['author']?>"><?php echo $article['user_name'] ?></a></td>
 				<td>&nbsp;<?php echo $article['date_written'] ?></td>
 				<td>&nbsp;<?php echo $article['genre_name'] ?></td>
 			</tr>

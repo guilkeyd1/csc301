@@ -14,9 +14,7 @@ include('includes/config.php');
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div class="site_title">
-		PERSONAL PUBLICATIONS
-	</div>
+	<div class="site_title"></div>
 	<main>
 		<div class="page">
 			<!-- BEGIN NON-BOILERPLATE CODE -->
