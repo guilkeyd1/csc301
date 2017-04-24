@@ -24,6 +24,11 @@ else {
 	$statement = runQuery('searchArticlesTitle', $params);
 }
 $articles = $statement->fetchAll(PDO::FETCH_ASSOC);
+$count = 0;
+foreach($articles as $art) {
+	$count++;
+}
+	
 
 ?>
 
@@ -32,21 +37,27 @@ $articles = $statement->fetchAll(PDO::FETCH_ASSOC);
 	<h2>ARTICLE SEARCH RESULTS</h2>
 	<table>
 		<tr>
-			<th width="5%"></th>
-			<th width="51%">&nbsp;Title:</th>
+			<th width="56%">&nbsp;Title:</th>
 			<th width="12%">&nbsp;Author:</th>
 			<th width="12%">&nbsp;Date:</th>
 			<th width="12%">&nbsp;Genre:</th>
 		</tr>
-		<?php foreach($articles as $article) : ?>
+		<?php if($count == 0) : ?>
 			<tr>
-				<td>&nbsp;<a href="view_article.php?action=view&article=<?php echo $article['article_id'] ?>">View</a>
-				<td>&nbsp;<?php echo $article['title'] ?></td>
-				<td>&nbsp;<a href="profile.php?user=<?php echo $article['author']?>"><?php echo $article['user_name'] ?></a></td>
-				<td>&nbsp;<?php echo $article['date_written'] ?></td>
-				<td>&nbsp;<?php echo $article['genre_name'] ?></td>
+				<td colspan="4" style="text-align:center;">No Matches Found</td>
 			</tr>
-		<?php endforeach; ?>
+		<?php else: ?>
+			<?php foreach($articles as $article) : ?>
+				<?php if($article['status'] != 'Hidden') : ?>
+					<tr>
+						<td>&nbsp;<a href="view_article.php?article=<?php echo $article['article_id'] ?>"><?php echo $article['title'] ?></a></td>
+						<td>&nbsp;<a href="profile.php?user=<?php echo $article['author']?>"><?php echo $article['user_name'] ?></a></td>
+						<td>&nbsp;<?php echo $article['date_written'] ?></td>
+						<td>&nbsp;<a href="search.php?search_term=<?php echo $article['genre_name'] ?>&search_type=genre"><?php echo $article['genre_name'] ?></a></td>
+					</tr>
+				<?php endif; ?>
+			<?php endforeach; ?>
+		<?php endif; ?>
 	</table>
 <!-- END NON-BOILERPLATE CODE -->
 <?php include('end.php'); ?>	<!-- INCLUDE ENDING BOILERPLATE -->

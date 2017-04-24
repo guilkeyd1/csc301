@@ -12,6 +12,7 @@ include('includes/config.php');
   	<title>Personal Publications - The Premiere Personal Publication Place</title>
 	<meta name="author" content="guilkeyd1">
 	<link rel="stylesheet" href="css/style.css">
+	<script src="js/sitescripts.js"></script>
 </head>
 <body>
 	<div class="site_title"></div>

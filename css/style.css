@@ -67,6 +67,12 @@ main {
     z-index: 1;
 }
 
+.drop_menu input {
+	display:block;
+	max-width:160px;
+	margin:6px auto;
+}
+
 .drop_menu a {
 	float: none;
 	color: black;
@@ -113,7 +119,7 @@ main {
 	background-color: #FFFFFF;
 }
 
-.page h2 {
+.page h2, .page h1 {
 	letter-spacing: 4px;
 }
 
@@ -122,15 +128,16 @@ main {
 	width:84%;
 	margin:auto;
 	margin-bottom:2px;
-	margin-top:-20px;
+	margin-top:-22px;
 }
-
+/*
 .add_new a {
 	text-decoration:none;
 	border:1px solid black;
 	border-radius:3px;
 	padding:2px 4px;
 }
+*/
 
 .right-align {
 	text-align:right;
@@ -170,4 +177,115 @@ main {
 
 .login-box {
 	border:1px solid black;
+	width:80%;
+	height:218px;
+	margin:auto;
+	border-radius:6px;
+}
+
+.profile_container {
+}
+
+.profile_image {
+	width:30%;
+	display:inline-block;
+	vertical-align:top;
+	min-height:276px;
+}
+
+.profile_block {
+	width:66%;
+	display:inline-block;
+	vertical-align:top;
+	min-height:250px;
+	text-align:left;
+	padding:12px;
+}
+
+.profile_name {
+	text-align:center;
+	border-bottom:3px solid #3F1A08;
+	margin-bottom:10px;
+}
+
+.profile_name h1 {
+	font-size: 40px;
+	margin: 10px auto;
+}
+
+label {
+	font-weight:bold;
+}
+
+.profile_pic {
+	height:250px;
+	width:250px;
+	margin-top:32px;
+	border:2px solid #3F1A08;
+	border-radius:6px;
+}
+
+.profile_small {
+	width:47%;
+	display:inline-block;
+	padding-left:10px;
+	font-size:16px;
+}
+
+.profile_edit {
+	float:right;
+	vertical-align:bottom;
+}
+
+.bio_box {
+	margin-top:25px;
+	padding-left:10px;
+}
+
+.bio_box label {
+	display:block;
+	margin-bottom: 10px;
+	text-decoration: underline;
+}
+
+.register_layout {
+}
+
+.register_image {
+	width:52%;
+	display:inline-block;
+	vertical-align:top:
+}
+
+.register_data {
+	width:46%;
+	display:inline-block;
+	vertical-align:top;
+}
+
+.details_label {
+	width:26%;
+	text-align: right;
+	display:inline-block;
+	margin-bottom:8px;
+	vertical-align:top;
+	padding-right:10px;
+}
+
+.details_box {
+	width:69%;
+	display:inline-block;
+	text-align:left;
+	margin-bottom:8px;
+}
+
+.details_submit {
+	text-align:right;
+	margin-right:73px;
+}
+
+.article_right {
+	float:right;
+	margin-right:75px;
+	margin-left:-75px;
 }

@@ -5,23 +5,6 @@ $member_id = $site_user->getId();
 
 ?>
 
-<script>
-	// toggle display of drop down on button click
-	function expand() {
-		document.getElementById("drop_menu").classList.toggle("show");
-	}
-
-	// toggle off display of drop down on outside click
-	window.onclick = function(e) {
-		if (!e.target.matches('.drop_button')) {
-			var drop_menu = document.getElementById("drop_menu");
-			if (drop_menu.classList.contains('show')) {
-				drop_menu.classList.remove('show');
-			}
-		}
-	}
-</script>
-
 <!-- THIS GETS INSERTED INTO PAGES -->
 <div class="user_top">
 	<div class="search_area">
@@ -37,7 +20,7 @@ $member_id = $site_user->getId();
 	</div>
 	<div class="drop_down">
 		<?php if(isset($site_user)) : ?>
-			<button class="drop_button" onclick="expand()">Hello <?php echo $site_user->getName() ?> &#9660;</button>
+			<button class="drop_button open" onclick="expand()">Hello <?php echo $site_user->getName() ?> &#9660;</button>
 			<div id="drop_menu" class="drop_menu">
 				<a href="profile.php?user=<?php echo $site_user->getId() ?>">My Profile</a>
 				<a href="dashboard.php">Dashboard</a>

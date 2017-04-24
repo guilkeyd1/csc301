@@ -24,18 +24,29 @@ if($action == 'add') {
 	$first_name = "";
 	$last_name = "";
 	$email = "";
+	$image = "";
+	$bio = "";
 }
 elseif($action == 'edit') {
 	if($new_user) {
 		// redirect new user to registration methodology
 		header('location: user_details.php?action=add');
 	}
+	
+	// get profile details for specific user
+	$params = array('user_id' => $site_user->getId());
+	$statement = runQuery('getUser', $params);
+	$profiles = $statement->fetchAll(PDO::FETCH_ASSOC);
+	$profile = $profiles[0];
+	
 	// set variables from site_user User object
-	$user_name = $site_user->getName();
-	$register_date = $site_user->getRegisterDate();
-	$first_name = $site_user->getFirstName();
-	$last_name = $site_user->getLastName();
-	$email = $site_user->getEmail();
+	$user_name = $profile['user_name'];
+	$register_date = $profile['register_date'];
+	$first_name = $profile['first_name'];
+	$last_name = $profile['last_name'];
+	$email = $profile['email'];
+	$image = $profile['image'];
+	$bio = $profile['bio'];
 }
 // submit button functionality
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -46,29 +57,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$first_name = $_POST['first_name'];
 		$last_name = $_POST['last_name'];
 		$email = $_POST['email'];
+		$bio = $_POST['bio'];
 		// set up parameters array
 		$params = array(
 			'user_name' => $user_name,
 			'password' => $pass,
 			'first_name' => $first_name,
 			'last_name' => $last_name,
-			'email' => $email
+			'email' => $email,
+			'bio' => $bio
 		);
-		// run query to register user and redirect
+		// run query to register user
 		runQuery('insertUser', $params);
-		header('location:index.php');
+
+		// log new user in and redirect to profile
+		$params = array(
+			'user_name' => $user_name,
+			'password' => $pass
+		);
+		$statement = runQuery("attemptLogin", $params);
+		$users = $statement->fetchAll(PDO::FETCH_ASSOC);
+	
+		if(!empty($users)) {
+			$site_user = $users[0];
+			$_SESSION['user_id'] = $site_user['user_id'];
+			header('location: profile.php?user=' . $_SESSION['user_id']);
+		}
 	}
 	elseif($action == 'edit') {
 		// set variables from form submission
 		$first_name = $_POST['first_name'];
 		$last_name = $_POST['last_name'];
 		$email = $_POST['email'];
+		$image = $_POST['image'];
+		$bio = $_POST['bio'];
 		// setup parameters array
 		$params = array(
 			'user_id' => $member_id,
 			'first_name' => $first_name,
 			'last_name' => $last_name,
-			'email' => $email
+			'email' => $email,
+			'image' => $image,
+			'bio' => $bio
 		);
 		// run query to update user and redirect
 		runQuery('updateUser', $params);
@@ -83,33 +113,78 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!-- BEGIN NON-BOILERPLATE CODE -->
 			<?php if(isset($site_user)) : ?>
 				<?php include('header.php'); ?>	<!-- INCLUDE USER TOP BAR -->
+				<h2>Edit User Details:</h2>
+			<?php else : ?>
+				<?php include('login.php'); ?>	<!-- INCLUDE USER TOP BAR -->
+				<h2>Enter User Details:</h2>
 			<?php endif; ?>
-			<h2>User Details:</h2>
-			<form method="POST">
-				<label>Username:</label>
-				<?php if(isset($site_user)) : ?>
-					<?php echo $user_name ?>
-					<br>
-					<label>Member Since:</label>
-					<?php echo $register_date ?>
-					<br>
-				<?php else : ?>
-					<input type="text" name="user_name" value="<?php echo $user_name ?>" />
-					<br>
-					<label>Password:</label>
-					<input type="password" name="password" value="<?php echo $pass ?>" />
-					<br>
-				<?php endif; ?>
-				<label>First Name:</label>
-				<input type="text" name="first_name" value="<?php echo $first_name ?>" />
-				<br>
-				<label>Last Name:</label>
-				<input type="text" name="last_name" value="<?php echo $last_name ?>" />
-				<br>
-				<label>Email:</label>
-				<input type="text" name="email" value="<?php echo $email ?>" />
-				<br>
-				<input type="submit" value="Submit"/>
-			</form>
+			<div class="register_layout">
+				<div class="register_image">
+					<img src="./images/08_splash.png">
+				</div>
+				<div class="register_data">
+					<form method="POST">
+						<div class="details_label">
+							<label>Username:</label>
+						</div>
+						<?php if(isset($site_user)) : ?>
+							<div class="details_box">
+								<?php echo $user_name ?>
+							</div>
+							<div class="details_label">
+								<label>Member Since:</label>
+							</div>
+							<div class="details_box">
+								<?php echo $register_date ?>
+							</div>
+						<?php else : ?>
+							<div class="details_box">
+								<input type="text" size="40" name="user_name" value="<?php echo $user_name ?>" />
+							</div>
+							<div class="details_label">
+								<label>Password:</label>
+							</div>
+							<div class="details_box">
+								<input type="password" size="40" name="password" value="<?php echo $pass ?>" />
+							</div>
+						<?php endif; ?>
+						<div class="details_label">
+							<label>First Name:</label>
+						</div>
+						<div class="details_box">
+							<input type="text" name="first_name" size="40" value="<?php echo $first_name ?>" />
+						</div>
+						<div class="details_label">
+							<label>Last Name:</label>
+						</div>
+						<div class="details_box">
+							<input type="text" name="last_name" size="40" value="<?php echo $last_name ?>" />
+						</div>
+						<div class="details_label">
+							<label>Email:</label>
+						</div>
+						<div class="details_box">
+							<input type="text" name="email" size="40" value="<?php echo $email ?>" />
+						</div>
+						<?php if(isset($site_user)) : ?>
+							<div class="details_label">
+								<label>Image URL:</label>
+							</div>
+							<div class="details_box">
+								<input type="text" name="image" size="40" value="<?php echo $image ?>" />
+							</div>
+						<?php endif; ?>
+						<div class="details_label">
+							<label>Biography:</label>
+						</div>
+						<div class="details_box">
+							<textarea name="bio" cols="30" rows="5"><?php echo $bio ?></textarea>
+						</div>
+						<div class="details_submit">
+							<input type="submit" value="Submit"/>
+						</div>
+					</form>
+				</div>
+			</div>
 <!-- END NON-BOILERPLATE CODE -->
 <?php include('end.php'); ?> <!-- INCLUDE ENDING BOILERPLATE -->
